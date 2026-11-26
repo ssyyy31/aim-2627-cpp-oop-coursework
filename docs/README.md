@@ -68,6 +68,9 @@ source install/setup.bash
 ros2 launch warehouse_dispatch warehouse_demo.launch.py
 ```
 
+`docs/q2_ubuntu_verify.sh` 是把上面四条命令、六行输出比对、BAD 行检查和残留节点检查串起来的
+验收脚本；在仓库根目录运行 `./docs/q2_ubuntu_verify.sh`（可用 `Q2_TIMEOUT` 调整超时）。
+
 预期输出对照（终端日志与 `/dispatch_results` 话题的 `std_msgs/String` 消息，按下列顺序出现且仅出现六条核心结果）：
 
 | # | 输入事件（`/warehouse_events`） | 调度判定 | 预期输出（`/dispatch_results`） | 状态变化 |

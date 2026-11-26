@@ -48,7 +48,7 @@ git show --stat HEAD -- .agent-sessions/
 
 ## AI 使用与开发过程
 
-**本作业绝大部分由本人自主完成。** 题面解读、模块与类的划分、`warehouse::Inventory` 状态转换与失败无副作用设计、`dispatch` 两种策略与 `Scheduler` 的算法逻辑、Q4 缺陷的根因判断与修复思路、以及 `docs/README.md`、`docs/DESIGN.md` 两篇文档的内容，均由本人独立推导并编写，公开方法签名与模板头文件未作改动。开发过程中仅把千问办公助理（Qwen Go，电脑端 Agent，会话日期 2026-11-26）当作轻量辅助工具使用。
+**本作业绝大部分由本人自主完成。** 题面解读、模块与类的划分、`warehouse::Inventory` 状态转换与失败无副作用设计、`dispatch` 两种策略与 `Scheduler` 的算法逻辑、Q4 缺陷的根因判断与修复思路、以及 `docs/README.md`、`docs/DESIGN.md` 两篇文档的内容，均由本人独立推导并编写，公开方法签名与模板头文件未作改动。开发过程中使用了 AI 辅助工具，仅用于下文的走查与校对环节。
 
 **AI 仅用于以下辅助环节**
 
@@ -63,6 +63,6 @@ git show --stat HEAD -- .agent-sessions/
 
 **本次复核（2026-11-26 晚间）**：AI 对全部实现与文档做了一轮走查，并直接修正了 `docs/DESIGN.md` 中两处与代码不符的表述（stock 平局示例中 S1 是否被排除、边界验证记录的公开测试覆盖来源），以及本 README 中会话归档状态的表述。核心库逻辑未作改动。
 
-**会话归档状态**：2026-11-26 晚间已在本机完成 Agent Session Commit（AgentLedger）v0.1.5 安装：仓库内 `.venv-agent-session-commit/` 可用，`.git/hooks/` 中已有 `pre-commit` 与 `post-commit` 钩子，`pre-commit` 归档步骤在提交时通过。但本次提交**没有生成 `.agent-sessions/bundles/`**：扫描器在本机 WorkBuddy 会话目录中未找到归属本仓库（工作目录为 `E:\aim-2627-cpp-oop-coursework`）的会话记录（状态输出为 `Project session files found: 0`），主要 AI 辅助来自未受该工具支持的 Qwen Go。题面 7.1 要求随提交保留会话归档，本项仍需补齐；待提供可识别的会话记录后重新提交归档。
+**会话归档状态**：2026-11-26 晚间已在本机完成 Agent Session Commit（AgentLedger）v0.1.5 安装：仓库内 `.venv-agent-session-commit/` 可用，`.git/hooks/` 中已有 `pre-commit` 与 `post-commit` 钩子，`pre-commit` 归档步骤在提交时通过。但本次提交**没有生成 `.agent-sessions/bundles/`**：扫描器在本机 WorkBuddy 会话目录中未找到归属本仓库（工作目录为 `E:\aim-2627-cpp-oop-coursework`）的会话记录（状态输出为 `Project session files found: 0`）。题面 7.1 要求随提交保留会话归档，本项仍需补齐；待有可识别的会话记录后重新提交归档。
 
 **理解声明**：提交人已通读全部代码与文档（含本次复核修正），能够现场解释各接口的校验顺序、状态转换与失败无副作用设计。

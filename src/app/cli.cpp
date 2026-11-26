@@ -1,27 +1,51 @@
 #include "app/cli.hpp"
 
+#include <cctype>
+#include <cstddef>
 #include <iostream>
-#include <string>
 #include <stdexcept>
+#include <string>
 
 namespace app {
 namespace {
 
+bool is_blank(char value) {
+    return value == ' ' || value == '\t' || value == '\n' ||
+           value == '\r' || value == '\f' || value == '\v';
+}
+
+bool clean_text(const std::string& value) {
+    if (value.empty()) {
+        return false;
+    }
+    return !is_blank(value.front()) && !is_blank(value.back());
+}
+
 }  // namespace
 
 std::string normalize_sku(const std::string& sku) {
-    (void)sku;
-    throw std::runtime_error("TODO: implement normalize_sku");
+    std::size_t begin = 0;
+    std::size_t end = sku.size();
+    while (begin < end && is_blank(sku[begin])) {
+        ++begin;
+    }
+    while (end > begin && is_blank(sku[end - 1])) {
+        --end;
+    }
+    std::string result = sku.substr(begin, end - begin);
+    for (char& value : result) {
+        value = static_cast<char>(
+            std::toupper(static_cast<unsigned char>(value)));
+    }
+    return result;
 }
 
 bool valid_station_id(const std::string& station_id) {
-    (void)station_id;
-    throw std::runtime_error("TODO: implement valid_station_id");
+    return clean_text(station_id);
 }
 
 bool valid_order_id(const std::string& order_id) {
-    (void)order_id;
-    throw std::runtime_error("TODO: implement valid_order_id");
+    return clean_text(order_id);
 }
 
 int run() {

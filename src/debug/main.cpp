@@ -28,17 +28,26 @@ public:
     }
 
     Decision submit(const std::string& order_id, int quantity) {
+        if (quantity <= 0) {
+            return {false, "", "invalid quantity"};
+        }
+        if (order_id.empty()) {
+            return {false, "", "invalid order id"};
+        }
         for (auto& item : stock_) {
             const std::string& station_id = item.first;
-            if (!busy_[station_id]) {
-                item.second -= quantity;
-                if (item.second < 0) {
-                    return {false, "", "insufficient stock"};
-                }
-                busy_[station_id] = true;
-                orders_[station_id] = order_id;
-                return {true, station_id, "accepted"};
+            if (busy_[station_id]) {
+                continue;
             }
+            // Validate before mutating: check the remaining stock without
+            // writing it first, so a rejected order leaves no side effects.
+            if (item.second < quantity) {
+                return {false, "", "insufficient stock"};
+            }
+            item.second -= quantity;
+            busy_[station_id] = true;
+            orders_[station_id] = order_id;
+            return {true, station_id, "accepted"};
         }
         return {false, "", "no available station"};
     }

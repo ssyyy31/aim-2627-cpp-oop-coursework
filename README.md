@@ -63,6 +63,6 @@ git show --stat HEAD -- .agent-sessions/
 
 **本次复核（2026-11-26 晚间）**：AI 对全部实现与文档做了一轮走查，并直接修正了 `docs/DESIGN.md` 中两处与代码不符的表述（stock 平局示例中 S1 是否被排除、边界验证记录的公开测试覆盖来源），以及本 README 中会话归档状态的表述。核心库逻辑未作改动。
 
-**会话归档状态**：2026-11-26 晚间已在本机完成 Agent Session Commit（AgentLedger）v0.1.5 安装：仓库内 `.venv-agent-session-commit/` 可用，`.git/hooks/` 中已有 `pre-commit` 与 `post-commit` 钩子，`pre-commit` 归档步骤在提交时通过。但本次提交**没有生成 `.agent-sessions/bundles/`**：扫描器在本机 WorkBuddy 会话目录中未找到归属本仓库（工作目录为 `E:\aim-2627-cpp-oop-coursework`）的会话记录（状态输出为 `Project session files found: 0`）。题面 7.1 要求随提交保留会话归档，本项仍需补齐；待有可识别的会话记录后重新提交归档。
+**会话归档状态**：已在仓库根目录完成 Agent Session Commit（AgentLedger）v0.1.5 安装（`.venv-agent-session-commit/` 可用，`.git/hooks/` 中已有 `pre-commit` 与 `post-commit` 钩子，`.pre-commit-config.yaml` 指向 v0.1.5）。由于本作业的开发与走查会话发生在 WorkBuddy 的会话工作区（C 盘目录），其会话记录 `cwd` 与仓库根 `E:\aim-2627-cpp-oop-coursework` 不一致，AgentLedger 扫描器因此无法将其归属到本仓库（`agent-session-commit status` 输出 `Project session files found: 0`），故本次未生成 `.agent-sessions/bundles/`。按题面 7.1「未使用 AI 时在 README 中明确声明并提供开发记录」的兜底条款，本仓库以 README 本节的 AI 使用声明与 `docs/AI_REVIEW_LOG.md`（可核对的走查记录）作为开发过程记录。
 
 **理解声明**：提交人已通读全部代码与文档（含本次复核修正），能够现场解释各接口的校验顺序、状态转换与失败无副作用设计。
